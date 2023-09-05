@@ -48,11 +48,23 @@ apt-get install -y g++ && \
 apt-get install -y make && \
 apt-get install -y git 
 
-RUN wget https://packages.microsoft.com/debian/10/prod/pool/main/m/msodbcsql17/msodbcsql17_17.10.1.1-1_amd64.deb
-RUN ACCEPT_EULA=Y dpkg -i msodbcsql17_17.10.1.1-1_amd64.deb
+RUN apt-get update \
+&& apt-get install -y gnupg gosu curl ca-certificates zip unzip git supervisor sqlite3 libcap2-bin libpng-dev python2 dnsutils \
+&& apt-get install -y mysql-client \
+&& apt-get install -y unixodbc-dev unixodbc odbcinst \
+&& cd /tmp \
+&& curl -O https://packages.microsoft.com/ubuntu/22.04/prod/pool/main/m/msodbcsql17/msodbcsql17_17.10.1.1-1_amd64.deb \
+&& curl -O https://packages.microsoft.com/ubuntu/22.04/prod/pool/main/m/mssql-tools/mssql-tools_17.10.1.1-1_amd64.deb \
+&& ACCEPT_EULA=Y dpkg -i msodbcsql17_17.10.1.1-1_amd64.deb \
+&& ACCEPT_EULA=Y dpkg -i mssql-tools_17.10.1.1-1_amd64.deb \
+&& apt-get install -f \
+&& pecl update-channels \
+&& apt-get -y autoremove \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.1_1.1.1n-0+deb10u6_amd64.deb
-RUN dpkg -i libssl1.1_1.1.1n-0+deb10u6_amd64.deb
+RUN ACCEPT_EULA=Y dpkg -i libssl1.1_1.1.1n-0+deb10u6_amd64.deb
 
 RUN wget http://ftp.us.debian.org/debian/pool/main/o/openldap/libldap-2.4-2_2.4.47+dfsg-3+deb10u7_amd64.deb
 RUN dpkg -i libldap-2.4-2_2.4.47+dfsg-3+deb10u7_amd64.deb
