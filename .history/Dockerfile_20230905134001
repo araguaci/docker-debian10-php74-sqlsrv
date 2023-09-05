@@ -48,26 +48,8 @@ apt-get install -y g++ && \
 apt-get install -y make && \
 apt-get install -y git 
 
-RUN apt-get update \
-&& apt-get install -y gnupg gosu curl ca-certificates zip unzip git supervisor sqlite3 libcap2-bin libpng-dev python2 dnsutils \
-&& curl -sLS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
-&& curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /etc/apt/keyrings/yarn.gpg >/dev/null \
-&& echo "deb [signed-by=/etc/apt/keyrings/yarn.gpg] https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
-&& curl -sS https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | tee /etc/apt/keyrings/pgdg.gpg >/dev/null \
-&& echo "deb [signed-by=/etc/apt/keyrings/pgdg.gpg] http://apt.postgresql.org/pub/repos/apt jammy-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
-&& apt-get update \
-&& apt-get install -y mysql-client \
-&& apt-get install -y unixodbc-dev unixodbc odbcinst \
-&& cd /tmp \
-&& curl -O https://packages.microsoft.com/ubuntu/22.04/prod/pool/main/m/msodbcsql17/msodbcsql17_17.10.1.1-1_amd64.deb \
-&& curl -O https://packages.microsoft.com/ubuntu/22.04/prod/pool/main/m/mssql-tools/mssql-tools_17.10.1.1-1_amd64.deb \
-&& ACCEPT_EULA=Y dpkg -i msodbcsql17_17.10.1.1-1_amd64.deb \
-&& ACCEPT_EULA=Y dpkg -i mssql-tools_17.10.1.1-1_amd64.deb \
-&& apt-get install -f \
-&& pecl update-channels \
-&& apt-get -y autoremove \
-&& apt-get clean \
-&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN wget https://packages.microsoft.com/debian/10/prod/pool/main/m/msodbcsql17/msodbcsql17_17.10.1.1-1_amd64.deb
+RUN ACCEPT_EULA=Y dpkg -i msodbcsql17_17.10.1.1-1_amd64.deb
 
 RUN wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.1_1.1.1n-0+deb10u6_amd64.deb
 RUN dpkg -i libssl1.1_1.1.1n-0+deb10u6_amd64.deb
