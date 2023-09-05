@@ -112,7 +112,7 @@ RUN mkdir -p /srv/www
 ADD ./entrypoint.sh /srv/www/entrypoint.sh
 
 # PORTS
-EXPOSE 80
+EXPOSE 80 1433
 RUN chmod +x /srv/www/entrypoint.sh
 CMD ["/srv/www/entrypoint.sh"]
 
