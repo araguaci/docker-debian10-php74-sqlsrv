@@ -1,6 +1,6 @@
 <?php
-$serverName = "191.252.93.202";
-$connectionInfo = array( "Database"=>"Attender_CRM", "UID"=>"megatronix", "PWD"=>"Lorentz@2020",'ReturnDatesAsStrings'=> true);
+$serverName = "192.168.1.9";
+$connectionInfo = array( "Database"=>"<database-name>", "UID"=>"<UID>", "PWD"=>"<PWD>",'ReturnDatesAsStrings'=> true);
 $conn = sqlsrv_connect( $serverName, $connectionInfo );
 if( $conn === false ) {
   die( print_r( sqlsrv_errors(), true));
