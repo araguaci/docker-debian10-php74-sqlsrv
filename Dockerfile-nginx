@@ -109,7 +109,7 @@ ADD ./supervisor/services /etc/supervisor/conf.d/
 WORKDIR /srv
 RUN mkdir -p /srv/www
 
-ADD ./entrypoint.sh /srv/www/entrypoint.sh
+COPY ./entrypoint.sh /srv/www/entrypoint.sh
 
 # PORTS
 EXPOSE 80 1433
